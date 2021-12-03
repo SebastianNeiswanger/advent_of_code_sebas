@@ -1,0 +1,3 @@
+On day 1 I realized that we were going to input all on the information in personally.
+It is my first year doing this, so I leaned towards Python at first for easy,
+txt file support. 
