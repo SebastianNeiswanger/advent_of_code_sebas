@@ -1,5 +1,6 @@
 ###
 ### Author: Sebastian Neiswanger
+### Date: 12/8/2022
 ### Solution to day 1 of Advent of Code 2022
 ###
 
