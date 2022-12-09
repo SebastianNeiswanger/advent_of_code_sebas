@@ -1,0 +1,1 @@
+C:\Users\sebas\repos\Personal\ Projects\advent_of_code\2022\day4\day4-solution\target\debug\day4-solution.exe: C:\Users\sebas\repos\Personal\ Projects\advent_of_code\2022\day4\day4-solution\src\main.rs
