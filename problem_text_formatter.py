@@ -18,7 +18,7 @@ else:
     f.close()
 
     #delete previous file
-    #os.remove(filePath)
+    os.remove(filePath)
 
     #edit the lines to correct length (80 chars)
     formated_lines = []
@@ -28,14 +28,16 @@ else:
             newLine = ""
             for i in range(len(words)):
                 if (len(newLine + words[i] + ' ')) > 80:
-                    formated_lines.append(newLine)
+                    formated_lines.append(newLine + '\n')
                     newLine = ""
                 newLine += words[i] + ' '
+            if newLine != "":
+                formated_lines.append(newLine)
         else:
             formated_lines.append(unformatted_lines[i])
 
     #write to new file
-    formatted_file = open('format.txt', "w")
+    formatted_file = open(filePath, "w")
     for line in formated_lines:
         formatted_file.write(line)
     formatted_file.close()
