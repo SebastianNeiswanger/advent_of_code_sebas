@@ -1,5 +1,11 @@
 use std::{fs, str::Split, ops::Range};
 
+//
+// Author: Sebastian Neiswanger
+// Date: 12/9/2022
+// A solution for Advent of Code 2022 day 4 in Rust
+//
+
 fn main() {
     // Read in the file to a string
     let contents = fs::read_to_string("../input.txt")
