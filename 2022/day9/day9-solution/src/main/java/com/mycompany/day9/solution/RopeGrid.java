@@ -116,19 +116,19 @@ public class RopeGrid {
                 yDiference = tail[i-1][1] - tail[i][1];
             }
             // Move Tail to follow next knot
-            if ((xDiference == -1 && yDiference == -2) || (xDiference == -2 && yDiference == -1)) {
+            if ((xDiference <= -1 && yDiference == -2) || (xDiference == -2 && yDiference <= -1)) {
                 // NW Diagonal
                 tail[i][0] -= 1;
                 tail[i][1] -= 1;
-            } else if ((xDiference == 1 && yDiference == -2) || (xDiference == 2 && yDiference == -1)) {
+            } else if ((xDiference >= 1 && yDiference == -2) || (xDiference == 2 && yDiference <= -1)) {
                 // NE Diagonal
                 tail[i][0] += 1;
                 tail[i][1] -= 1;
-            } else if ((xDiference == -1 && yDiference == 2) || (xDiference == -2 && yDiference == 1)) {
+            } else if ((xDiference <= -1 && yDiference == 2) || (xDiference == -2 && yDiference >= 1)) {
                 // SW Diagonal
                 tail[i][0] -= 1;
                 tail[i][1] += 1;
-            } else if ((xDiference == 1 && yDiference == 2) || (xDiference == 2 && yDiference == 1)) {
+            } else if ((xDiference >= 1 && yDiference == 2) || (xDiference == 2 && yDiference >= 1)) {
                 // SE Diagonal
                 tail[i][0] += 1;
                 tail[i][1] += 1;
