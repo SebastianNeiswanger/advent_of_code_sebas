@@ -1,10 +1,11 @@
 package com.mycompany.day11.solution;
 
+import java.math.BigInteger;
 import java.util.Vector;
 
 public class Monkey {
     // Variables extracted in the constructor
-    private Vector<Integer> items = new Vector<Integer>();
+    private Vector<BigInteger> items = new Vector<BigInteger>();
     private char operationSign;
     private String operationRightSide;
     private int divisibleBy;
@@ -32,7 +33,7 @@ public class Monkey {
         String[] startingArr = startingItems.split(":");
         String[] itemsArr = startingArr[1].split(",");
         for (String item : itemsArr) {
-            items.add(Integer.parseInt(item));
+            items.add(new BigInteger(item));
         }
         // Extract operation
         if (operation.contains("*")) {
@@ -62,28 +63,28 @@ public class Monkey {
      * the monkey gets bored with the item
      */
     public void inspectItems(Vector<Monkey> monkeysToThrowTo, int worryDrop) {
-        for (int item : items) {
+        for (BigInteger item : items) {
             // Inspect the item
             if (operationSign == '+') {
                 if (operationRightSide.equals("old")) {
-                    item += item;
+                    item = item.add(item);
                 } else {
-                    item += Integer.parseInt(operationRightSide);
+                    item = item.add(new BigInteger(operationRightSide));
                 }
             } else if (operationSign == '*') {
                 if (operationRightSide.equals("old")) {
-                    item *= item;
+                    item = item.multiply(item);
                 } else {
-                    item *= Integer.parseInt(operationRightSide);
+                    item = item.multiply(new BigInteger(operationRightSide));
                 }
             }
             inspectedItems++;
             // Get bored with the item
             if (worryDrop != 0) {
-                item /= worryDrop;
+                item = item.divide(BigInteger.valueOf(worryDrop));
             }
             // Throw Item
-            if (0 == item % divisibleBy) {
+            if (BigInteger.ZERO == item.remainder(BigInteger.valueOf(divisibleBy))) {
                 monkeysToThrowTo.get(trueMonkey).catchItem(item);
             } else {
                 monkeysToThrowTo.get(falseMonkey).catchItem(item);
@@ -97,7 +98,7 @@ public class Monkey {
      * 
      * @param newItem new items worry value
      */
-    public void catchItem(int newItem) {
+    public void catchItem(BigInteger newItem) {
         items.add(newItem);
     }
 
