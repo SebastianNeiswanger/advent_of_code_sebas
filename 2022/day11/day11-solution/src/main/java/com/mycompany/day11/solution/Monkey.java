@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class Monkey {
     // Variables extracted in the constructor
-    private Vector<Integer> items = new Vector<Integer>();
+    private Vector<Long> items = new Vector<Long>();
     private char operationSign;
     private String operationRightSide;
     private int divisibleBy;
@@ -35,7 +35,7 @@ public class Monkey {
         String[] startingArr = startingItems.split(":");
         String[] itemsArr = startingArr[1].split(",");
         for (String item : itemsArr) {
-            items.add(Integer.parseInt(item));
+            items.add(Long.parseLong(item));
         }
         // Extract operation
         if (operation.contains("*")) {
@@ -65,7 +65,7 @@ public class Monkey {
      * the monkey gets bored with the item
      */
     public void inspectItems(Vector<Monkey> monkeysToThrowTo, int worryDrop) {
-        for (int item : items) {
+        for (Long item : items) {
             // Inspect the item
             if (operationSign == '+') {
                 if (operationRightSide.equals("old")) {
@@ -120,7 +120,7 @@ public class Monkey {
      * 
      * @param newItem new items worry value
      */
-    public void catchItem(int newItem) {
+    public void catchItem(Long newItem) {
         items.add(newItem);
     }
 

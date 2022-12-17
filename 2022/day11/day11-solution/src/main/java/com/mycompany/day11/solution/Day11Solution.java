@@ -10,6 +10,13 @@ import java.util.Vector;
  * @author  Sebastian Neiswanger
  * @date    12/16/2022
  * @purpose solution to Advent of Code 2022 day 11 in Java 
+ * 
+ * @help
+ * Part 2 of this problem stumped me and I ended up needing help off the subreddit
+ * to finish it. I first tried using BigInteger to let the numbers just get infinitely larger,
+ * yet that did not work and ended up crashing. Then after looking for help I made the change
+ * to include modular arithmatic and u/DontOpenNewTabs made me realize that the ints were still
+ * overflowing and that using longs instead would solve this.
  */
 public class Day11Solution {
     public static void main(String[] args) throws FileNotFoundException {
