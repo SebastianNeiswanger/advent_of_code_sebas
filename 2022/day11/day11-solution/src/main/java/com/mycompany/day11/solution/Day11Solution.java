@@ -14,13 +14,13 @@ import java.util.Vector;
 public class Day11Solution {
     public static void main(String[] args) throws FileNotFoundException {
         // Turns input into a scanner that can be walked through
-        Scanner inputFile = new Scanner(new File("test-input.txt"));
-
+        Scanner inputFile = new Scanner(new File("input.txt"));
+        
         // Vector to hold Monkeys
         Vector<Monkey> part1Monkeys = new Vector<Monkey>();
         Vector<Monkey> part2Monkeys = new Vector<Monkey>();
-
-        // Create the Part 1 Monkeys
+        
+        // Create the Monkey vectors
         while (inputFile.hasNextLine()) { // First line does not matter
             inputFile.nextLine();
             String startingItems = inputFile.nextLine().replaceAll("\\s", "");
@@ -34,6 +34,15 @@ public class Day11Solution {
             if (inputFile.hasNextLine()) { inputFile.nextLine(); }     
         }
 
+        // Set the modulo that will keep the items lower in int size
+        int mod = 1;
+        for (Monkey monkey : part2Monkeys) {
+            mod *= monkey.getDivisibleBy();
+        }
+        for (Monkey monkey : part2Monkeys) {
+            monkey.setModulo(mod);
+        }
+        
         // Part 1: Run for 20 rounds and then find the two monkeys
         // who have the highest number of inspected items
         for (int round = 0; round < 20; round++) {

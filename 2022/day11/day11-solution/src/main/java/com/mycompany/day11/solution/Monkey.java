@@ -1,11 +1,10 @@
 package com.mycompany.day11.solution;
 
-import java.math.BigInteger;
 import java.util.Vector;
 
 public class Monkey {
     // Variables extracted in the constructor
-    private Vector<BigInteger> items = new Vector<BigInteger>();
+    private Vector<Integer> items = new Vector<Integer>();
     private char operationSign;
     private String operationRightSide;
     private int divisibleBy;
@@ -14,6 +13,9 @@ public class Monkey {
 
     // Keep track of how many times the monkey inspected an item
     private int inspectedItems = 0;
+
+    // For part 2 we need to keep the number smaller but also divisible
+    private int modulo = 1;
 
     /**
      * Retreive the monkey data from the strings given. 
@@ -33,7 +35,7 @@ public class Monkey {
         String[] startingArr = startingItems.split(":");
         String[] itemsArr = startingArr[1].split(",");
         for (String item : itemsArr) {
-            items.add(new BigInteger(item));
+            items.add(Integer.parseInt(item));
         }
         // Extract operation
         if (operation.contains("*")) {
@@ -63,28 +65,30 @@ public class Monkey {
      * the monkey gets bored with the item
      */
     public void inspectItems(Vector<Monkey> monkeysToThrowTo, int worryDrop) {
-        for (BigInteger item : items) {
+        for (int item : items) {
             // Inspect the item
             if (operationSign == '+') {
                 if (operationRightSide.equals("old")) {
-                    item = item.add(item);
+                    item += item;
                 } else {
-                    item = item.add(new BigInteger(operationRightSide));
+                    item += Integer.parseInt(operationRightSide);
                 }
             } else if (operationSign == '*') {
                 if (operationRightSide.equals("old")) {
-                    item = item.multiply(item);
+                    item *= item;
                 } else {
-                    item = item.multiply(new BigInteger(operationRightSide));
+                    item *= Integer.parseInt(operationRightSide);
                 }
             }
             inspectedItems++;
             // Get bored with the item
             if (worryDrop != 0) {
-                item = item.divide(BigInteger.valueOf(worryDrop));
+                item /= worryDrop;
+            } else {
+                item %= modulo;
             }
             // Throw Item
-            if (BigInteger.ZERO == item.remainder(BigInteger.valueOf(divisibleBy))) {
+            if (0 == item % divisibleBy) {
                 monkeysToThrowTo.get(trueMonkey).catchItem(item);
             } else {
                 monkeysToThrowTo.get(falseMonkey).catchItem(item);
@@ -94,11 +98,29 @@ public class Monkey {
     }
 
     /**
+     * Sets the modulo required to keep part 2 within the int limit
+     * 
+     * @param mod int to set the modulo with
+     */
+    public void setModulo(int mod) {
+        modulo = mod;
+    }
+
+    /**
+     * Used when finding the modulo for part 2
+     * 
+     * @return divisibleBy int
+     */
+    public int getDivisibleBy() {
+        return divisibleBy;
+    }
+
+    /**
      * Obtain a new item thrown by a different monkey
      * 
      * @param newItem new items worry value
      */
-    public void catchItem(BigInteger newItem) {
+    public void catchItem(int newItem) {
         items.add(newItem);
     }
 
