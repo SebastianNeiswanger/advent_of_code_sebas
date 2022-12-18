@@ -1,6 +1,6 @@
 ###
 ### Author: Sebastian Neiswanger
-### Date: 12/178/2022
+### Date: 12/18/2022
 ### Solution to day 12 of Advent of Code 2022
 ###
 
