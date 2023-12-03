@@ -17,7 +17,14 @@ fn read_and_split(file_path: &str) -> Vec<String> {
     return input_lines;
 }
 
-fn determine_valid_game(red_max: u32, green_max: u32, blue_max: u32, red: u32, green: u32, blue: u32) -> bool {
+fn determine_valid_game(
+    red_max: u32,
+    green_max: u32,
+    blue_max: u32,
+    red: u32,
+    green: u32,
+    blue: u32,
+) -> bool {
     if red > red_max || green > green_max || blue > blue_max {
         return false;
     }
@@ -28,21 +35,44 @@ fn main() {
     let lines: Vec<String> = read_and_split("./input.txt");
     let mut game_total: u128 = 0;
 
-    for line: &str in &lines {
+    for line in &lines {
+        let first_split: VecDeque<&str> = line.split(":").collect();
+        let second_split: VecDeque<&str> = first_split[1].split(";").collect();
         let re = Regex::new(r"[0-9]").unwrap();
-        let re = Regex::new(r"(?<red>[0-9]+ red)|?<blue>([0-9]+ blue)|(?<green>[0-9]+ green)").unwrap();
-        let first_split: Vec<&str> = line.split(":").collect();
-        let game: u32 = re.captures(first_split[0]).unwrap()[0].parse().unwrap();
-        let valid_game = true;
-        let second_split: Vec<&str> = first_split[1].split(";").collect();
-        let mut captures: VecDeque<String> = re
-            .captures_iter(test_str)
-            .map(|c| c.get(0).unwrap().as_str().to_owned())
-            .collect();
-        for cap in captures {
-            println!("{}", cap);
+        let game: u128 = re.captures(first_split[0]).unwrap()[0].parse().unwrap();
+        let re =
+            Regex::new(r"(?<red>[0-9]+ red)|(?<blue>[0-9]+ blue)|(?<green>[0-9]+ green)").unwrap();
+        let mut valid_game = true;
+        for s in second_split {
+            // let mut captures: VecDeque<String> = re
+            //     .captures_iter(s)
+            //     .map(|c| c.get(0).unwrap().as_str().to_owned())
+            //     .collect();
+            let Some(caps) = re.captures(s) else {
+                continue;
+            };
+            let mut red: u32 = 0;
+            let mut green: u32 = 0;
+            let mut blue: u32 = 0;
+            let caps = re.captures_iter(s);
+            for cap in caps {
+                println!("{}", cap.get(0).unwrap().as_str());
+            }
+            if !determine_valid_game(
+                12, 
+                13, 
+                14, 
+                red, 
+                green, 
+                blue
+            ) {
+                valid_game = false;
+                break;
+            }
+        }
+        if valid_game {
+            game_total += game;
         }
     }
-
-   
+    println!("Part 1: {}", game_total)
 }
